@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0B0D12;
+  --foreground: #FFFFFF;
+  
+  --bg-primary: #0B0D12;
+  --bg-secondary: #121722;
+  --surface-card: rgba(24, 30, 43, 0.7);
+  --gold-accent: #D4AF37;
+  --gold-muted: #B8941F;
+  --success: #18C964;
+  --warning: #F5A524;
+  --danger: #F31260;
+  --text-primary: #FFFFFF;
+  --text-secondary: #9AA4B2;
+  
+  --grid-line: rgba(212, 175, 55, 0.03);
+  --radar-dot: rgba(212, 175, 55, 0.06);
+  --glass-border: rgba(212, 175, 55, 0.15);
+  --panel-shadow: rgba(0, 0, 0, 0.5);
+  --terminal-bg: rgba(18, 23, 34, 0.75);
+}
+
+:root.light {
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+  
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #F1F5F9;
+  --surface-card: rgba(255, 255, 255, 0.85);
+  --gold-accent: #9A7D18; /* Increased contrast for light background */
+  --gold-muted: #806510;
+  --success: #166534; /* Darker green for contrast */
+  --warning: #9A3412; /* Darker orange */
+  --danger: #991B1B; /* Darker red */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  
+  --grid-line: rgba(154, 125, 24, 0.04);
+  --radar-dot: rgba(154, 125, 24, 0.06);
+  --glass-border: rgba(154, 125, 24, 0.2);
+  --panel-shadow: rgba(15, 23, 42, 0.06);
+  --terminal-bg: rgba(255, 255, 255, 0.9);
+}
+
+/* Theme Safety Overrides for Utility Classes in Light Mode */
+:root.light .text-white {
+  color: var(--text-primary) !important;
+}
+
+:root.light .hover\:text-white:hover {
+  color: var(--text-primary) !important;
+}
+
+:root.light .border-white\/5 {
+  border-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+:root.light .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+:root.light .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.15) !important;
+}
+
+:root.light .bg-white\/5 {
+  background-color: rgba(15, 23, 42, 0.03) !important;
+}
+
+:root.light .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+:root.light .bg-white\/\[0\.01\] {
+  background-color: rgba(15, 23, 42, 0.01) !important;
+}
+
+:root.light .bg-white\/\[0\.02\] {
+  background-color: rgba(15, 23, 42, 0.02) !important;
+}
+
+:root.light .bg-white\/\[0\.03\] {
+  background-color: rgba(15, 23, 42, 0.03) !important;
+}
+
+:root.light .bg-white\/\[0\.05\] {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+:root.light .hover\:bg-white:hover {
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-surface-card: var(--surface-card);
+  --color-gold-accent: var(--gold-accent);
+  --color-gold-muted: var(--gold-muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-radar-pulse: radar-pulse 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbars for Terminal Feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-accent);
+}
+
+/* Military Grid Overlay */
+.military-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+}
+
+.radar-dots {
+  background-size: 20px 20px;
+  background-image: radial-gradient(circle, var(--radar-dot) 1px, transparent 1px);
+}
+
+/* Glassmorphism Panel with tech gold border */
+.glass-panel {
+  background: var(--terminal-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--panel-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel-glow {
+  background: var(--terminal-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--gold-accent);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.08);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Terminal Scanning Line Overlay */
+.scanlines::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 99;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Cybernetic Corner Indicators */
+.corner-bracket {
+  position: relative;
+}
+
+.corner-bracket::before, .corner-bracket::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--gold-accent);
+  opacity: 0.5;
+  border-style: solid;
+  pointer-events: none;
+}
+
+/* Top corners */
+.corner-bracket-tl::before {
+  top: 0; left: 0;
+  border-width: 1px 0 0 1px;
+}
+.corner-bracket-tr::before {
+  top: 0; right: 0;
+  border-width: 1px 1px 0 0;
+}
+/* Bottom corners */
+.corner-bracket-bl::after {
+  bottom: 0; left: 0;
+  border-width: 0 0 1px 1px;
+}
+.corner-bracket-br::after {
+  bottom: 0; right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+.terminal-glow-gold {
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+:root.light .terminal-glow-gold {
+  text-shadow: none; /* Turn off glows in light mode for clean flat print readability */
+}
+
+.terminal-glow-red {
+  text-shadow: 0 0 8px rgba(243, 18, 96, 0.6);
+}
+
+:root.light .terminal-glow-red {
+  text-shadow: none;
+}
